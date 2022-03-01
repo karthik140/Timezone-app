@@ -31,6 +31,7 @@
 				<extensions>true</extensions>
 				<configuration>
 						<cloudHubDeployment>
+							<uri>https://anypoint.mulesoft.com</uri>
 							<username>karthik_March_2022</username>
 							<password>Shegu@14</password>
 							<environment>Sandbox</environment>
@@ -39,6 +40,7 @@
 							<muleVersion>4.4.0</muleVersion>
 							<workers>1</workers>
 							<objectStoreV2>true</objectStoreV2>
+							<businessGroup>Trail</businessGroup>
 						</cloudHubDeployment>
 				</configuration>
 			</plugin>
