@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="20578473-ad83-4fd4-8a41-5a75930f2cfb" basePath="/timezone">
+		<http:listener-connection host="0.0.0.0" port="8089" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="0d6e01da-e677-45c3-a451-a953dc7f9846" basePath="/api/timezone" >
+		<http:request-connection host="worldtimeapi.org" />
+	</http:request-config>
+	<flow name="jenkins-pipelineFlow" doc:id="7d7e70e9-ee19-447b-b1eb-05d0e01a2791" >
+		<http:listener doc:name="Listener" doc:id="ba22c359-80b7-433a-8522-49401da33b75" config-ref="HTTP_Listener_config" path="/{area}/{location}/{region}"/>
+		<http:request method="GET" doc:name="Request" doc:id="8c5c2fbb-8c3b-4972-a6c6-267334fcd8fc" config-ref="HTTP_Request_configuration" path="/{area}/{location}/{region}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"area" : attributes.uriParams.area,
+	"region" : attributes.uriParams.region,
+	"location" : attributes.uriParams.location
+}]]]></http:uri-params>
+		</http:request>
+	</flow>
+</mule>
