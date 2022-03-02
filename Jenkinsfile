@@ -22,7 +22,7 @@ pipeline
 		
 		stage('Perform Regression Testing'){
 			steps{
-				bat 'C:\\Users\\kshegu\\AppData\\Roaming\npm\\newman run C:\\Users\\kshegu\\newman\\Jenkins.postman_collection.json --disable-unicode'
+				bat 'C:\\Users\\kshegu\\AppData\\Roaming\\npm\\newman run C:\\Users\\kshegu\\newman\\Jenkins.postman_collection.json --disable-unicode'
 				}
 		}
 		
