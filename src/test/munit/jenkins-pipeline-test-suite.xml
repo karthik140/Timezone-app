@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="jenkins-pipeline-test-suite.xml" />
+	<munit:test name="jenkins-pipeline-test-suite-jenkins-pipelineFlowTest" doc:id="05802cc7-3e36-43e0-982a-b8aa45015da6" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Set Event Flow Reference" doc:id="14f6aa5f-87ce-43b4-a16d-8e0fac49c5ed" name="jenkins-pipeline-test-suiteFlow"/>
+			<flow-ref doc:name="Flow-ref to jenkins-pipelineFlow" doc:id="fb5d044e-2cf9-4a91-9ff4-c41f0975818c" name="jenkins-pipelineFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="20e4e4ea-dc8c-46e8-9aab-c7e0c2c2aa75" message="Payload is Null" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="75163c4f-af33-4895-acba-dd13069ae1af" is="#[MunitTools::withMediaType('application/json')]" message="Payload is not application/json" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<flow name="jenkins-pipeline-test-suiteFlow" doc:id="fffc63f1-a031-4dce-91bd-4b51295f98d6" >
+		<munit:set-event doc:name="Set Event" doc:id="96ed2fe8-ca34-4abd-8adb-174a56f85e78">
+				<munit:attributes value='#[{uriParams:{area: "America",location: "Argentina",region:"Salta"}}]' />
+			</munit:set-event>
+	</flow>
+	<munit:test name="jenkins-pipeline-test-suiteTest" doc:id="8d5968cd-14af-4dce-b3ad-bd2435a22946" >
+		<munit:execution >
+			<flow-ref doc:name="Set Event Flow Reference" doc:id="57b65735-e339-48fc-932d-d3be684e67e7" name="jenkins-pipeline-test-suiteFlow"/>
+			<flow-ref doc:name="Flow-ref to jenkins-pipelineFlow" doc:id="f0d9f6b6-57b1-482b-9862-2a65c874637f" name="jenkins-pipelineFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="96229b08-a9b9-44a0-b16a-7fa64475a8aa" message='#[payload.dst ++ "is not correct"]' expression="#[payload.dst]" is="#[MunitTools::equalTo(false)]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="jenkins-pipeline-test-suiteTest2" doc:id="46128aee-5832-4e32-b4c2-333c72a5fba3">
+			<munit:execution>
+				<flow-ref doc:name="Set Event Flow Reference" doc:id="0bd81823-ff7c-4a5b-96c1-f5584c4ac6ad" name="jenkins-pipeline-test-suiteFlow" />
+				<flow-ref doc:name="Flow-ref to jenkins-pipelineFlow" doc:id="3c56ea3e-6f85-403e-8008-97b86048613f" name="jenkins-pipelineFlow" />
+			</munit:execution>
+			<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="beb72c18-3ff1-482a-b7e3-c386ba8298a8" message="Payload is not application/json" expression="#[payload]" is="#[MunitTools::withMediaType('application/json')]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="jenkins-pipeline-test-suiteTest3" doc:id="ead56d93-e110-4207-afae-f6902a0f4911">
+			<munit:execution>
+				<flow-ref doc:name="Set Event Flow Reference" doc:id="15b1ae52-be12-4b86-852c-edad1c902399" name="jenkins-pipeline-test-suiteFlow" />
+				<flow-ref doc:name="Flow-ref to jenkins-pipelineFlow" doc:id="48a92795-ae80-489a-beba-db6c944662df" name="jenkins-pipelineFlow" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-that doc:name="Assert that" doc:id="bed9b032-4a5b-44dd-9b72-e58026b0ad49" message="Payload is not application/json or null" expression="#[payload]" is="#[MunitTools::both(MunitTools::withMediaType('application/json'),MunitTools::notNullValue())]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="Copy_of_jenkins-pipeline-test-suiteTest4" doc:id="7ba9a253-16a8-4c74-8b50-6c62aa75fbdd">
+			<munit:execution>
+				<flow-ref doc:name="Copy_of_Set Event Flow Reference" doc:id="f323fd2d-831e-4b2b-86a9-88db1648a52a" name="jenkins-pipeline-test-suiteFlow" />
+				<flow-ref doc:name="Copy_of_Flow-ref to jenkins-pipelineFlow" doc:id="343c681b-3bb7-4392-be3a-ae04ba4a795e" name="jenkins-pipelineFlow" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-that doc:name="Copy_of_Assert that" doc:id="42c382fc-1339-4ed6-a98f-b1d4c3a0a638" message="Payload is not application/json or null" expression="#[payload]" is="#[MunitTools::either(MunitTools::withMediaType('application/xml'),MunitTools::notNullValue())]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="Copy_of_Copy_of_jenkins-pipeline-test-suiteTest5" doc:id="0af77c8c-3c22-4062-af35-bdcd5195df2d">
+			<munit:execution>
+				<flow-ref doc:name="Copy_of_Copy_of_Set Event Flow Reference" doc:id="70b6dd1e-dab6-400d-9b34-29ab6a91dbd1" name="jenkins-pipeline-test-suiteFlow" />
+				<flow-ref doc:name="Copy_of_Copy_of_Flow-ref to jenkins-pipelineFlow" doc:id="7ded529c-a234-48f4-9f9e-a0ceec09535d" name="jenkins-pipelineFlow" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-that doc:name="Copy_of_Copy_of_Assert that" doc:id="d6f7c575-c5dc-4335-8830-8bb86e7f1707" message="Payload is not application/json or null or encoding is not correct" expression="#[payload]" is="#[MunitTools::allOf([MunitTools::withMediaType('application/json'),MunitTools::notNullValue(), MunitTools::withEncoding('UTF-8')])]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="Copy_of_Copy_of_Copy_of_jenkins-pipeline-test-suiteTest5" doc:id="11c92ebc-2d13-47d5-bfc0-48c2532d7376">
+			<munit:execution>
+				<flow-ref doc:name="Copy_of_Copy_of_Copy_of_Set Event Flow Reference" doc:id="379caf36-325e-42fc-a168-0e4914bb5de9" name="jenkins-pipeline-test-suiteFlow" />
+				<flow-ref doc:name="Copy_of_Copy_of_Copy_of_Flow-ref to jenkins-pipelineFlow" doc:id="3a2ed03a-df6b-4795-b2d8-0b37b2d29aaa" name="jenkins-pipelineFlow" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-that doc:name="Copy_of_Copy_of_Copy_of_Assert that" doc:id="f9d2fcf1-cb0c-4ed6-9fad-df49cee844fb" message="Payload is not application/json or null oe encoding is not correct" expression="#[payload]" is="#[MunitTools::anyOf([MunitTools::withMediaType('application/json'),MunitTools::notNullValue(), MunitTools::withEncoding('UTF-8')])]" />
+			</munit:validation>
+		</munit:test>
+
+
+</mule>

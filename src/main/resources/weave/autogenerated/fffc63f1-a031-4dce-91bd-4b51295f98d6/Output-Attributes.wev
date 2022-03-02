@@ -1,0 +1,10 @@
+%dw 2.0
+
+type auto_fffc63f1_a031_4dce_91bd_4b51295f98d6_Output_Attributes = {|
+  uriParams: {|
+    area: String, 
+    location: String, 
+    region: String
+  |}
+|}
+
